@@ -105,14 +105,13 @@ class Order
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private int $id;
+    private ?int $id = null;
 
     /**
-     * @var ArrayCollection<Item>
+     * @var Collection<Item>
      */
     #[ORM\OneToMany(targetEntity: Item::class, mappedBy: 'order', orphanRemoval: true)]
-    #[Groups(['order:read'])]
-    private ArrayCollection $items;
+    private Collection $items;
 
     public function __construct()
     {

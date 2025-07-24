@@ -12,7 +12,7 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private int $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private float $price;
@@ -21,6 +21,13 @@ class Product
     private float $vat;
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $test = false;
+
+    public function __construct(float $price = 0.0, float $vat = 0.0, bool $test = false)
+    {
+        $this->price = $price;
+        $this->vat = $vat;
+        $this->test = $test;
+    }
 
     public function getVat(): float
     {

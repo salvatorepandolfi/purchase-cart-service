@@ -11,7 +11,7 @@ class Item
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private int $id;
+    private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: Product::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
@@ -19,7 +19,6 @@ class Item
 
     #[ORM\ManyToOne(targetEntity: Order::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
-    #[Groups(['item:read'])]
     private Order $order;
 
     #[ORM\Column(type: 'integer')]
