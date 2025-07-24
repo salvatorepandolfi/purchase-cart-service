@@ -1,58 +1,69 @@
 # Purchase Cart Service
 
-A RESTful API service for calculating order pricing with VAT.
+A RESTful API service for calculating order pricing with VAT, built with Symfony 7.3 and API Platform.
 
-## Requirements
-
-- Docker
-- Docker Compose
-- Git
-
-## Running the Application
+## Script Usage
 
 ### Build the Application
 
 ```bash
-docker run -v $(pwd):/mnt -p 9090:9090 -w /mnt mytest ./scripts/build.sh
+./scripts/build.sh
 ```
 
-### Run Tests
+This script:
+- Builds and starts Docker services using Docker Compose
+- Installs Composer dependencies
+- Clears application cache
+- Runs database migrations
+- Generates product fixtures with sample data
 
-```bash
-docker run -v $(pwd):/mnt -p 9090:9090 -w /mnt mytest ./scripts/test.sh
-```
 
 ### Run the Application
 
 ```bash
-docker run -v $(pwd):/mnt -p 9090:9090 -w /mnt mytest ./scripts/run.sh
+./scripts/run.sh
 ```
 
-## Alternative: Direct Docker Compose Commands
-
-### Build and Start Services
-
-```bash
-docker-compose up -d --build
-```
+This script:
+- Starts the application and database services
+- Makes the API available on http://localhost:9090
 
 ### Run Tests
 
 ```bash
-docker-compose exec app ./vendor/bin/phpunit
+ ./scripts/test.sh
 ```
 
-### View Logs
+This script:
 
-```bash
-docker-compose logs -f
-```
+- Runs PHPUnit tests for all components
+- Displays test results and coverage
 
-### Stop Services
+## Implementation Overview
 
-```bash
-docker-compose down
-```
+### Architecture
+- **Backend**: PHP 8.4 with Symfony 7.3 framework
+- **Database**: PostgreSQL 16 with Doctrine ORM
+- **API Documentation**: API Platform with Swagger/OpenAPI
+- **Containerization**: Docker with Docker Compose
+- **Testing**: PHPUnit with comprehensive test coverage
+
+### Key Components
+
+#### Entities
+- **Product**: Stores product information with base price and VAT rate
+- **Order**: Manages order data with total price and VAT calculations
+- **Item**: Represents individual items in an order with quantity and pricing
+
+#### Services
+- **OrderService**: Core business logic for order creation and pricing calculations
+- **ProductRepository**: Data access for product information
+
+#### DTOs (Data Transfer Objects)
+- **OrderRequest**: Validates incoming order data
+- **OrderResponse**: Structures API response with pricing details
+- **ItemResponse**: Individual item pricing information
+
 
 ## API Usage
 
@@ -111,20 +122,50 @@ docker-compose down
 }
 ```
 
-## Architecture
+## Swagger Interface
 
-- **Database**: PostgreSQL 16 with persistent volume
-- **Application**: PHP 8.2 with Symfony 7.3
-- **Networking**: Both containers communicate via Docker network
-- **Ports**: 
-  - Application: 9090
-  - Database: 5432 (internal only)
+The application includes API Platform with Swagger documentation:
 
-## Considerations
+### Access Swagger UI
+1. Start the application: `./scripts/run.sh`
+2. Open your browser to: `http://localhost:9090/api/docs`
 
-- **Docker Compose**: Manages both database and application containers
-- **Database Health Check**: Ensures database is ready before starting app
-- **Volume Mounting**: Project directory mounted to `/mnt` in app container
-- **Environment Variables**: Database connection configured via environment
-- **Networking**: Containers communicate via internal Docker network
-- **Testing**: PHPUnit tests run in the application container 
+### Using Swagger Interface
+1. **Browse Endpoints**: View all available API endpoints
+2. **Test API**: Click on any endpoint to expand it
+3. **Try it out**: Click "Try it out" button for interactive testing
+4. **Request Body**: Paste your JSON request in the provided text area
+5. **Execute**: Click "Execute" to send the request
+6. **View Response**: See the formatted response with pricing details
+
+## Alternative: Direct Docker Compose Commands
+
+### Build and Start Services
+```bash
+docker compose up -d --build
+```
+
+### Run Tests
+```bash
+docker compose exec app ./vendor/bin/phpunit
+```
+
+### View Logs
+```bash
+docker compose logs -f
+```
+
+### Stop Services
+```bash
+docker compose stop
+```
+
+## Technical Considerations
+
+- **Docker Compliance**: Full directory mounted to `/mnt` in container
+- **Port Binding**: Web service bound to port 9090, PSQL bound to port 5432
+- **Script Structure**: All scripts executable within Docker container
+- **Database Persistence**: PostgreSQL data persisted via Docker volumes
+- **Error Handling**: Comprehensive validation and error responses
+- **Testing**: Unit tests for entities, integration tests for API
+- **Code Quality**: PHPStan static analysis and PHP CS Fixer formatting
