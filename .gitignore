@@ -1,0 +1,75 @@
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/.env.test
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> IDE files ###
+/.idea/
+/.vscode/
+/.editorconfig
+*.swp
+*.swo
+*~
+###< IDE files ###
+
+###> OS generated files ###
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+###< OS generated files ###
+
+###> Logs ###
+*.log
+/logs/
+###< Logs ###
+
+###> Cache ###
+/cache/
+###< Cache ###
+
+###> Database ###
+*.db
+*.sqlite
+*.sqlite3
+###< Database ###
+
+###> Composer ###
+composer.phar
+###< Composer ###
+
+###> Node modules (if using frontend build tools) ###
+/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+###< Node modules ###
+
+###> Build artifacts ###
+/build/
+/dist/
+###< Build artifacts ###
+
+###> Temporary files ###
+*.tmp
+*.temp
+###< Temporary files ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###
