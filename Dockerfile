@@ -15,15 +15,23 @@ RUN apt-get update && apt-get install -y \
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-COPY --link composer.* symfony.* ./
-
-RUN composer install --no-cache --prefer-dist --no-dev --no-autoloader --no-progress
-
 # Set working directory
 WORKDIR /mnt
 
+# prevent the reinstallation of vendors at every changes in the source code
+COPY --link composer.* symfony.* ./
+RUN set -eux; \
+	composer install --no-cache --prefer-dist --no-autoloader --no-scripts --no-progress
+
 # copy sources
 COPY --link . ./
+
+RUN set -eux; \
+	mkdir -p var/cache var/log; \
+	composer dump-autoload --classmap-authoritative --no-dev; \
+	composer dump-env prod; \
+	composer run-script --no-dev post-install-cmd; \
+	chmod +x bin/console; sync;
 
 # Expose port 9090
 EXPOSE 9090

@@ -7,15 +7,20 @@ docker compose up -d --build
 
 # Wait for database to be ready
 echo "Waiting for database to be ready..."
-sleep 10
+sleep 1
 
 # Install Composer dependencies
-docker compose exec app composer install --no-dev --optimize-autoloader
+docker compose exec app composer install --optimize-autoloader
 
 # Clear cache
-docker compose exec app php bin/console cache:clear --env=prod
+docker compose exec app php bin/console cache:clear
 
 # Run database migrations
 docker compose exec app php bin/console doctrine:migrations:migrate --no-interaction
+
+# Generate product fixtures
+docker compose exec app php bin/console app:generate-product-fixtures
+
+docker compose stop
 
 echo "Build completed successfully!"
