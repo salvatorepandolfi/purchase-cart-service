@@ -1,0 +1,67 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Parameter \#1 \$orderId of class App\\DTO\\OrderResponse constructor expects int, int\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: '#^Parameter \#1 \$productId of class App\\DTO\\ItemResponse constructor expects int, int\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: '#^Property App\\Entity\\Item\:\:\$id is never written, only read\.$#'
+			identifier: property.onlyRead
+			count: 1
+			path: src/Entity/Item.php
+
+		-
+			message: '#^Method App\\Entity\\Order\:\:getItems\(\) return type with generic interface Doctrine\\Common\\Collections\\Collection does not specify its types\: TKey, T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Entity/Order.php
+
+		-
+			message: '#^Property App\\Entity\\Order\:\:\$id is never written, only read\.$#'
+			identifier: property.onlyRead
+			count: 1
+			path: src/Entity/Order.php
+
+		-
+			message: '#^Property App\\Entity\\Order\:\:\$items with generic class Doctrine\\Common\\Collections\\ArrayCollection does not specify its types\: TKey, T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Entity/Order.php
+
+		-
+			message: '#^Property App\\Entity\\Product\:\:\$id \(int\) does not accept int\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: '#^Class App\\Repository\\ItemRepository extends generic class Doctrine\\Bundle\\DoctrineBundle\\Repository\\ServiceEntityRepository but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Repository/ItemRepository.php
+
+		-
+			message: '#^Class App\\Repository\\OrderRepository extends generic class Doctrine\\Bundle\\DoctrineBundle\\Repository\\ServiceEntityRepository but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Repository/OrderRepository.php
+
+		-
+			message: '#^Class App\\Repository\\ProductRepository extends generic class Doctrine\\Bundle\\DoctrineBundle\\Repository\\ServiceEntityRepository but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Repository/ProductRepository.php
+
+		-
+			message: '#^Parameter \#1 \$product of class App\\Entity\\Item constructor expects App\\Entity\\Product, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Service/OrderService.php
